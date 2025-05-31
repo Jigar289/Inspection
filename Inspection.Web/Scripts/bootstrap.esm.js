@@ -26,8 +26,8 @@ const toType = object => {
  * Public Util API
  */
 
-
-const getUID = prefix => {
+  
+const getUID = prefix => {  
   do {
     prefix += Math.floor(Math.random() * MAX_UID);
   } while (document.getElementById(prefix));
