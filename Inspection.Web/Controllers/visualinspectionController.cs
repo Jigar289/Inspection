@@ -370,7 +370,7 @@ namespace Inspection.Web.Controllers
                 if (_model != null)
                 {
                     int? _stage = Convert.ToInt32(_model._submodel.Stage);
-                    string _Stages = DB.Final_Inspection_Stage_Master.Where(l => l.Stage == _stage).Select(l => l.stage_part_status).FirstOrDefault();
+                    string _Stages = DB.Final_Inspection_Stage_Master.Where(l => l.ID == _stage).Select(l => l.stage_part_status).FirstOrDefault();
                     int ID = _model._INWARD.id;
                     Final_Inspection_Data _Inspection_Data = DB.Final_Inspection_Data.Where(V => V.JobNum == _model._INWARD.JobNo && V.QualityStage == _model._INWARD.QualityStage && V.Inspection_Type == _model._INWARD.InspectionType).FirstOrDefault();
                     if (_Inspection_Data != null)
@@ -387,8 +387,6 @@ namespace Inspection.Web.Controllers
                         _Stage_Data.CurrentDateTime = DateTime.Now.ToString();
                         DB.Final_Inspection_Stage_Data.Add(_Stage_Data);
                         
-
-
                         _Inspection_Data.Statuschange = true;
                         _Inspection_Data.Stage = _Stages;
                         if (_Stages == "2 - Parts waiting for MRB")
@@ -408,13 +406,24 @@ namespace Inspection.Web.Controllers
                         else if (_Stages == "7 - Parts in Deviation")
                         {
                             _Inspection_Data.Deviation_Qty = _model._submodel.DecisionQty;
-                        }      
+                            _Inspection_Data.indeviation = true;
+                        }
+                        else if (_Stages == "12 - Parts in Hold")
+                        {
+                            _Inspection_Data.Hold = true;
+                        }
+                        else if (_Stages == "10 - Parts Ready For Packing")
+                        {
+                            _Inspection_Data.Hold = true;
+                        }
+
                     }
                     bool mrb = false;
                     bool rework = false;
                     bool sorting = false;
                     bool deviation = false;
                     bool packing = false;
+                    bool hold = false;
 
                     List<Final_Inspection_Process> _I_Data = DB.Final_Inspection_Process.Where(V => V.JobNum == _model._INWARD.JobNo && V.Inspection_Type == _model._INWARD.InspectionType).ToList();
                     if (_I_Data != null)
@@ -440,9 +449,9 @@ namespace Inspection.Web.Controllers
                         {
                             packing = true;
                         }
-                        else if (_model._submodel.Stage.Trim() == "10 - Parts Ready For packing")
+                        else if (_model._submodel.Stage.Trim() == "12 - Parts in Hold")
                         {
-
+                            hold = true;
                         }
                         else if (_model._submodel.Stage.Trim() == "16 - Visual Inspection Completed")
                         {

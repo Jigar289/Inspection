@@ -976,6 +976,7 @@
 
                                                     <h6 class="card-title mb-0">
                                                         Final Inspection <span class="badge badge-gradient-primary ">@fstage</span>
+
                                                         @if (fqty != null)
                                                         {
                                                             <button type="button" value="@fqty" id="smainqtyFinal" class="btn btn-outline-primary waves-effect waves-light">
@@ -988,12 +989,18 @@
                                                                 Sample Qty
                                                             </button>
                                                         }
+
                                                         <button type="button" value="@Model._INWARD.acceptqty" id="smainqtyFinalqty" class="btn btn-outline-primary waves-effect waves-light">
                                                             Accept Qty : @Model._INWARD.acceptqty
                                                         </button>
-                                                        <button type="button" class="btn btn-outline-primary waves-effect waves-light" onclick="openModalpopupeditstage('Final')">
-                                                            Edit Stage
-                                                        </button>
+
+                                                        @* Show Edit button only if stage is NOT 20 *@
+                                                        @if (fstage != "12 - Parts in Hold")
+                                                        {
+                                                            <button type="button" class="btn btn-outline-primary waves-effect waves-light" onclick="openModalpopupeditstage('Final')">
+                                                                Edit Stage
+                                                            </button>
+                                                        }
                                                     </h6>
                                                 </div>
                                                 @if (fqty != null)

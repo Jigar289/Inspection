@@ -79,17 +79,17 @@ namespace Inspection.Web.Controllers
                 try
                 {
                     _modelfinal.PartsWaitingForFinalCount = FINAL?.Count(k => k.Stage?.Trim() == "1 - Parts waiting for Final") ?? 0;
-                    _modelfinal.PartsWaitingForMRBCount = FINAL?.Count(k => k.Stage.Trim() == "2 - Parts waiting for MRB") ?? 0;
-                    _modelfinal.PartsWaitingForSortingCount = FINAL?.Count(k => k.Stage.Trim() == "3 - Parts waiting for Sorting" || k.waitingforsorting == true) ?? 0;
-                    _modelfinal.PartsWaitingForReworkCount = FINAL?.Count(k => k.Stage.Trim() == "4 - Parts waiting for Rework" || k.waitingforrework == true) ?? 0;
-                    _modelfinal.PartsinreworkCount = FINAL?.Count(k => k.Stage.Trim() == "8 - Parts in Rework" || k.inrework == true) ?? 0;
-                    _modelfinal.ReworkcompleteandwaitingforinspectionCount = FINAL?.Count(k => k.Stage.Trim() == "6 - Rework complete and waiting for inspection" || k.completeandwaiting == true) ?? 0;
-                    _modelfinal.Partsindeviationcount = FINAL?.Count(k => k.Stage.Trim() == "7 - Parts in Deviation" || k.indeviation == true) ?? 0;
-                    _modelfinal.PartdonothaveunitpriceandrevissueCount = FINAL?.Count(k => k.Stage.Trim() == "8 - Parts don't have unit price and rev issue") ?? 0;
-                    _modelfinal.PartsInspectioncompletedandwaitingforfilecompleteCount = FINAL?.Count(k => k.Stage.Trim() == "9 - Parts inspection completed and waiting for file complete" || k.completedandwaiting == true) ?? 0;
-                    _modelfinal.PartsReadyForpackingCount = FINAL?.Count(k => k.Stage.Trim() == "10 - Parts Ready For Packing") ?? 0;
-                    _modelfinal.PartsmovedfromqualityCount = FINAL?.Count(k => k.Stage.Trim() == "11 - Parts moved from Quality") ?? 0;
-                    _modelfinal.PartsinholdCount = FINAL?.Count(k => k.Stage.Trim() == "12 - Parts in Hold") ?? 0;
+                    _modelfinal.PartsWaitingForMRBCount = FINAL?.Count(k => k.Stage != null && k.Stage.Trim() == "2 - Parts waiting for MRB") ?? 0;
+                    _modelfinal.PartsWaitingForSortingCount = FINAL?.Count(k => k.Stage != null && k.Stage.Trim() == "3 - Parts waiting for Sorting" || k.waitingforsorting == true) ?? 0;
+                    _modelfinal.PartsWaitingForReworkCount = FINAL?.Count(k => k.Stage != null && k.Stage.Trim() == "4 - Parts waiting for Rework" || k.waitingforrework == true) ?? 0;
+                    _modelfinal.PartsinreworkCount = FINAL?.Count(k => k.Stage != null && k.Stage.Trim() == "8 - Parts in Rework" || k.inrework == true) ?? 0;
+                    _modelfinal.ReworkcompleteandwaitingforinspectionCount = FINAL?.Count(k => k.Stage != null && k.Stage.Trim() == "6 - Rework complete and waiting for inspection" || k.completeandwaiting == true) ?? 0;
+                    _modelfinal.Partsindeviationcount = FINAL?.Count(k => k.Stage != null && k.Stage.Trim() == "7 - Parts in Deviation" || k.indeviation == true) ?? 0;
+                    _modelfinal.PartdonothaveunitpriceandrevissueCount = FINAL?.Count(k => k.Stage != null && k.Stage.Trim() == "8 - Parts don't have unit price and rev issue") ?? 0;
+                    _modelfinal.PartsInspectioncompletedandwaitingforfilecompleteCount = FINAL?.Count(k => k.Stage != null && k.Stage.Trim() == "9 - Parts inspection completed and waiting for file complete" || k.completedandwaiting == true) ?? 0;
+                    _modelfinal.PartsReadyForpackingCount = FINAL?.Count(k => k.Stage != null && k.Stage.Trim() == "10 - Parts Ready For Packing") ?? 0;
+                    _modelfinal.PartsmovedfromqualityCount = FINAL?.Count(k => k.Stage != null && k.Stage.Trim() == "11 - Parts moved from Quality") ?? 0;
+                    _modelfinal.PartsinholdCount = FINAL?.Count(k => k.Stage != null && k.Stage.Trim() == "12 - Parts in Hold") ?? 0;
                     maindata.Final = _modelfinal;
 
                     maindata.finalpendinginspection = _modelfinal.PartsWaitingForFinalCount + _modelfinal.PartsWaitingForSortingCount + _modelfinal.ReworkcompleteandwaitingforinspectionCount;
